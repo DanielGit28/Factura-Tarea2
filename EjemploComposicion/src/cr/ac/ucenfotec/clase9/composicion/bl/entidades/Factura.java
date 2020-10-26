@@ -1,6 +1,6 @@
 /**
 *@author Daniel Zuniga
-*@version 1.0
+*@version 1.1
 *
 */
 package cr.ac.ucenfotec.clase9.composicion.bl.entidades;
@@ -9,24 +9,34 @@ import java.util.ArrayList;
 
 
 public class Factura {
-    private int numero;
-    private String cliente;
+    private Cliente cliente;
+    private int numeroFactura;
     private ArrayList<LineaDetalle> lineas;
 
-    public int getNumero() {
-        return numero;
+
+    public void save() throws Exception{
+        if(this.getLineas() == null || this.getLineas().size() == 0) {
+            throw new Exception("Factura no puede carecer de lineas de detalle");
+        }else {
+            /*aqui iria el codigo de salvar*/
+        }
     }
 
-    public void setNumero(int numero) {
-        this.numero = numero;
-    }
 
-    public String getCliente() {
+    public Cliente getCliente() {
         return cliente;
     }
 
-    public void setCliente(String cliente) {
+    public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public int getNumeroFactura() {
+        return numeroFactura;
+    }
+
+    public void setNumeroFactura(int numeroFactura) {
+        this.numeroFactura = numeroFactura;
     }
 
     public ArrayList<LineaDetalle> getLineas() {
@@ -36,29 +46,22 @@ public class Factura {
     public void setLineas(ArrayList<LineaDetalle> lineas) {
         this.lineas = lineas;
     }
-    
+
     public Factura() {
-        this.lineas = new ArrayList<>();
     }
-    public Factura(int numero, String cliente, ArrayList<LineaDetalle> lineas) {
-        this.numero = numero;
+
+    public Factura(Cliente cliente, int numeroFactura, ArrayList<LineaDetalle> lineas) {
         this.cliente = cliente;
+        this.numeroFactura = numeroFactura;
         this.lineas = lineas;
     }
-    
+
     @Override
     public String toString() {
         return "Factura{" +
-                "numero=" + numero + 
-                ", cliente='" + cliente + '\'' +
-                ", lineas='" + lineas +
+                "cliente=" + cliente +
+                ", numeroFactura=" + numeroFactura +
+                ", lineas=" + lineas +
                 '}';
-    }
-    public void save() throws Exception{
-        if(this.lineas == null || this.lineas.size() == 0) {
-            throw new Exception("Factura no puede carecer de lineas de detalle");
-        }else {
-            /*aqui iria el codigo de salvar*/
-        }
     }
 }

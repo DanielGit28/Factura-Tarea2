@@ -1,12 +1,22 @@
 
 package cr.ac.ucenfotec.clase9.composicion.bl.entidades;
-
+/**
+ * @author Daniel Zúñiga Rojas
+ * @version 1.1
+ */
 
 public class LineaDetalle {
+    private Producto producto;
     private int cantidad;
-    private int codigo;
-    private String descripcion;
-    private double precio;
+
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
 
     public int getCantidad() {
         return cantidad;
@@ -15,48 +25,18 @@ public class LineaDetalle {
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
+    public LineaDetalle() {}
 
-    public int getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public double getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(double precio) {
-        this.precio = precio;
-    }
-    public LineaDetalle() {
-        
-    }
-    public LineaDetalle(int cantidad, int codigo, String descripcion, double precio){
+    public LineaDetalle(Producto producto, int cantidad) {
+        this.producto = producto;
         this.cantidad = cantidad;
-        this.codigo = codigo;
-        this.descripcion = descripcion;
-        this.precio = precio;
     }
+
     @Override
     public String toString() {
         return "LineaDetalle{" +
-                "cantidad=" + cantidad + 
-                ", codigo='" + codigo + '\'' +
-                ", descripcion='" + descripcion +
-                ", precio='" + precio +
+                "producto=" + producto +
+                ", cantidad=" + cantidad +
                 '}';
     }
-    
-    
 }
