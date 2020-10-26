@@ -20,7 +20,8 @@ public class IU {
         output.println("4. Imprimir factura");
         output.println("5. Listar clientes");
         output.println("6. Listar productos");
-        output.println("7. Salir");
+        output.println("7. Listar facturas");
+        output.println("8. Salir");
     }
     /**
      * @return input.nextInt() el entero que devuelve es la entrada para ingresar un numero entero

@@ -23,7 +23,7 @@ public class Controlador {
             interfaz.mostrarMenu();
             opcion = interfaz.leerOpcion();
             procesarOpcion(opcion);
-        } while (opcion!=7);
+        } while (opcion!=8);
     }
 
     /**
@@ -40,6 +40,7 @@ public class Controlador {
                 break;
             case 3:
                 crearProducto();
+                break;
             case 4:
                 imprimirFactura();
                 break;
@@ -50,6 +51,9 @@ public class Controlador {
                 listarProductos();
                 break;
             case 7:
+                listarFacturas();
+                break;
+            case 8:
                 break;
             default:
                 interfaz.imprimirMensaje("Opcion desconocida");
@@ -60,8 +64,8 @@ public class Controlador {
         ArrayList<LineaDetalle> lineas = new ArrayList<>();
         interfaz.imprimirMensaje("Introduzca la identificación del cliente: ");
         String idCliente = interfaz.leerTexto();
-        interfaz.imprimirMensaje("Introduzca el número de factura: ");
-        int numFactura = interfaz.leerEntero();
+        interfaz.imprimirMensaje("Introduzca el código de factura: ");
+        String codFactura = interfaz.leerTexto();
 
         int opcion = 0;
 
@@ -82,10 +86,9 @@ public class Controlador {
                     }
                 }
             }
-
-            gestor.crearFactura(idCliente, numFactura, lineas);
-            interfaz.imprimirMensaje("\nFactura creada con éxito.");
         }
+        gestor.crearFactura(idCliente, codFactura, lineas);
+        interfaz.imprimirMensaje("\nFactura creada con éxito.");
     }
 
     private void crearCliente() {
@@ -118,14 +121,27 @@ public class Controlador {
         int precio = interfaz.leerEntero();
 
         gestor.agregarProducto(codProducto, descripcion, precio);
+        interfaz.imprimirMensaje("Producto creado con éxito");
     }
 
     public void imprimirFactura() {
-        interfaz.imprimirMensaje("Ingrese el número de factura: ");
-        int numFactura = interfaz.leerEntero();
-        interfaz.imprimirMensaje(gestor.imprimirFactura(numFactura));
-    }
+        interfaz.imprimirMensaje("Ingrese el código de factura: ");
+        String codFactura = interfaz.leerTexto();
 
+        for (int i = 0; i < gestor.listarFacturas().size(); i++) {
+            Factura factura = gestor.listarFacturas().get(i);
+            if (factura.getCodFactura().equals(codFactura)) {
+                interfaz.imprimirMensaje(factura.toString());
+            }
+        }
+    }
+    private void listarFacturas() {
+        ArrayList<Factura> facturas = gestor.listarFacturas();
+        interfaz.imprimirMensaje("Lista de facturas");
+        for (int i = 0; i < facturas.size(); i++) {
+            interfaz.imprimirMensaje(facturas.get(i).toString());
+        }
+    }
     private void listarClientes() {
         ArrayList<Cliente> clientes = gestor.listarClientes();
         interfaz.imprimirMensaje("Lista de clientes");

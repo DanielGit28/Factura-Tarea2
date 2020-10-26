@@ -13,18 +13,17 @@ import java.util.Calendar;
  * @version 1.0
  */
 public class Gestor {
-    ArrayList<LineaDetalle> lineasDetalle = new ArrayList<> ();
-    ArrayList<Producto> productos = new ArrayList<> ();
-    ArrayList<Cliente> clientes = new ArrayList<> ();
-    ArrayList<Factura> facturas = new ArrayList<> ();
+    ArrayList<LineaDetalle> lineasDetalle = new ArrayList<>();
+    ArrayList<Producto> productos = new ArrayList<>();
+    ArrayList<Cliente> clientes = new ArrayList<>();
+    ArrayList<Factura> facturas = new ArrayList<>();
 
     /**
-     *
      * @param factura objeto factura
      * @return texto sobre la condicion de la factura
      */
     public String agregarFactura(Factura factura) {
-        if(buscarFactura(factura.getNumeroFactura()) == null) {
+        if (buscarFactura(factura.getCodFactura()) == null) {
             facturas.add(factura);
             return "Agregada exitosamente";
         } else {
@@ -33,46 +32,49 @@ public class Gestor {
     }
 
     /**
-     *
-     * @param idCliente cadena de caracteres que permite indetificar el cliente asociado a la factura
-     * @param numeroFactura entero que determina el numero de factura
-     * @param lineas arrayList que contiene los productos de la factura y la cantidad
+     * @param idCliente  cadena de caracteres que permite indetificar el cliente asociado a la factura
+     * @param codFactura cadena de caracteres que determina el numero de factura
+     * @param lineas     arrayList que contiene los productos de la factura y la cantidad
      */
-    public void crearFactura(String idCliente, int numeroFactura, ArrayList<LineaDetalle> lineas) {
-        for (int i = 0; i < facturas.size(); i++) {
-            Factura tempFac = facturas.get(i);
-            if(tempFac.getNumeroFactura() != numeroFactura) {
-                for (int j = 0; j < clientes.size(); j++) {
-                    Cliente tempCliente = clientes.get(j);
-                    if(tempCliente.getIdentifacion().equals(idCliente)) {
-                        Factura factura = new Factura(tempCliente, numeroFactura, lineas);
-                        facturas.add(factura);
-                    }
-                }
+    public void crearFactura(String idCliente, String codFactura, ArrayList<LineaDetalle> lineas) {
+
+        for (int j = 0; j < clientes.size(); j++) {
+            Cliente tempCliente = clientes.get(j);
+            System.out.println("Pasa por aquí");
+            if (tempCliente.getIdentifacion().equals(idCliente)) {
+                System.out.println("Pasa por aquí en factura");
+                Factura factura = new Factura(tempCliente, codFactura, lineas);
+                facturas.add(factura);
+            } else {
+                System.out.println("La factura ya existe.");
             }
         }
-    }
+
+}
     /**
      *
-     * @param numFactura entero que permite indentificar a cual objeto factura imprimir
+     * @param codFactura cadena de caracteres que permite indentificar a cual objeto factura imprimir
      * @return texto
      */
-    public Factura buscarFactura(int numFactura) {
-        for(Factura factura:facturas) {
-            if(factura.getNumeroFactura() == numFactura)
+    public Factura buscarFactura(String codFactura) {
+        for (int i = 0; i < listarFacturas().size(); i++) {
+            Factura factura = listarFacturas().get(i);
+            if(factura.getCodFactura().equals(codFactura)) {
                 return factura;
+            }
         }
         return null;
     }
 
     /**
      *
-     * @param numFactura entero que permite indentificar a cual objeto factura imprimir
+     * @param codFactura cadena de caracteres que permite indentificar a cual objeto factura imprimir
      * @return texto
      */
-    public String imprimirFactura(int numFactura) {
-        Factura factura = buscarFactura(numFactura);
-        if(factura!= null) {
+
+    public String imprimirFactura(String codFactura) {
+        Factura factura = buscarFactura(codFactura);
+        if(factura != null) {
             return factura.toString();
         }
         return "Factura no existe";
@@ -80,10 +82,10 @@ public class Gestor {
 
     /**
      *
-     * @param numFactura entero que permite identificar a cual objeto factura eliminar
+     * @param codFactura cadena de caracteres permite identificar a cual objeto factura eliminar
      */
-    public void eliminarFactura(int numFactura) {
-        facturas.remove(buscarFactura(numFactura));
+    public void eliminarFactura(String codFactura) {
+        facturas.remove(buscarFactura(codFactura));
     }
 
     /**
@@ -92,6 +94,7 @@ public class Gestor {
      * @param descripcion cadena de caracteres que determina la descripcion del producto
      * @param precio el entero que determina el precio del producto
      */
+
     public void agregarProducto(String codigo, String descripcion, int precio) {
         Producto producto = new Producto(codigo, descripcion, precio);
         productos.add(producto);

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class Factura {
     private Cliente cliente;
-    private int numeroFactura;
+    private String codFactura;
     private ArrayList<LineaDetalle> lineas;
 
 
@@ -31,12 +31,12 @@ public class Factura {
         this.cliente = cliente;
     }
 
-    public int getNumeroFactura() {
-        return numeroFactura;
+    public String getCodFactura() {
+        return codFactura;
     }
 
-    public void setNumeroFactura(int numeroFactura) {
-        this.numeroFactura = numeroFactura;
+    public void setCodFactura(String codFactura) {
+        this.codFactura = codFactura;
     }
 
     public ArrayList<LineaDetalle> getLineas() {
@@ -46,13 +46,11 @@ public class Factura {
     public void setLineas(ArrayList<LineaDetalle> lineas) {
         this.lineas = lineas;
     }
+    public Factura() {}
 
-    public Factura() {
-    }
-
-    public Factura(Cliente cliente, int numeroFactura, ArrayList<LineaDetalle> lineas) {
+    public Factura(Cliente cliente, String codFactura, ArrayList<LineaDetalle> lineas) {
         this.cliente = cliente;
-        this.numeroFactura = numeroFactura;
+        this.codFactura = codFactura;
         this.lineas = lineas;
     }
 
@@ -60,7 +58,7 @@ public class Factura {
     public String toString() {
         return "Factura{" +
                 "cliente=" + cliente +
-                ", numeroFactura=" + numeroFactura +
+                ", codFactura='" + codFactura + '\'' +
                 ", lineas=" + lineas +
                 '}';
     }
